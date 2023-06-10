@@ -26,19 +26,19 @@
                 <mat-option value="EUR">
                     <span class="flex items-center">
                         <img
-                             src="https://flagcdn.com/w40/eu.png"
-                             class="w-[32px] mr-2"
-                             alt="European Union"
+                                src="https://flagcdn.com/w40/eu.png"
+                                class="w-[32px] mr-2"
+                                alt="European Union"
                         >
                         Euro
                     </span>
                 </mat-option>
                 <mat-option value="GBP">
-                        <img
+                    <img
                             src="https://flagsapi.com/GB/flat/32.png"
                             class="inline w-[32px] mr-2"
                             alt="United states flag"
-                        >
+                    >
                     Great Britain Pound
                 </mat-option>
                 <mat-option value="RUB">
@@ -71,8 +71,13 @@
         <mat-table [dataSource]="exchangeRates$ | async" class="mat-elevation-z8">
             <!-- Define the table structure here, e.g., -->
             <ng-container matColumnDef="bankName">
+                <mat-cell *matCellDef="let element">
+                    <span class="flex">
+                        <img *ngIf="element.logoUrl" src="{{element.logoUrl}}" class="w-[32px] mr-2" alt="Bank logo">
+                        {{element.bankName}}
+                    </span>
+                </mat-cell>
                 <mat-header-cell *matHeaderCellDef> Bank Name</mat-header-cell>
-                <mat-cell *matCellDef="let element"> {{element.bankName}} </mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="buyRate">
