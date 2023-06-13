@@ -2,7 +2,7 @@ import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {FormControl, ReactiveFormsModule} from '@angular/forms';
 import {async, BehaviorSubject} from 'rxjs';
 import {switchMap, startWith} from 'rxjs/operators';
-import {ExchangeRateService} from "../../../exchange-rate.service";
+import {ExchangeRateService} from "./exchange-rate.service";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatSelectModule} from "@angular/material/select";
 import {MatTableModule} from "@angular/material/table";
@@ -35,7 +35,7 @@ export class ExchangeRatesComponent implements OnInit {
         this.selectControl.valueChanges.pipe(
             startWith(this.selectControl.value),
             switchMap((value) => this.exchangeRateService.getExchangeRates(value))
-        ).subscribe(data => this.exchangeRates$.next(data.bankCurrencyInformationDto));
+        ).subscribe(x => this.exchangeRates$.next(x.data.bankCurrencyInformationDto));
         // store selected currency
         this.selectControl.valueChanges
             .subscribe(value => {
