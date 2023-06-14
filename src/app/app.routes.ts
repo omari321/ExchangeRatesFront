@@ -26,6 +26,7 @@ export const appRoutes: Route[] = [
         },
         children: [
             {path: 'exchange-rates', loadChildren: () => import('app/modules/landing/exchangeRates/exchange-rates.routes')},
+            {path: 'historic-exchange-rates', loadChildren: () => import('app/modules/landing/historicExchangeRates/historic-exchate-rates.routes')},
             { path: '**', redirectTo: 'exchange-rates' },
         ],
 

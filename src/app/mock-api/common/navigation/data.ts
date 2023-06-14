@@ -15,7 +15,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
         title: 'Historical Exchange Rates',
         type : 'basic',
         icon : 'heroicons_outline:calendar',
-        link : '/historical-exchange-rates'
+        link : '/historic-exchange-rates'
     }
 ];
 export const compactNavigation: FuseNavigationItem[] = [
