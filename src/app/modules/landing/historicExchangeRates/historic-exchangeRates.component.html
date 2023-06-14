@@ -68,7 +68,7 @@
             </mat-select>
         </mat-form-field>
         <mat-form-field class="w-full">
-            <mat-label>Select Interval</mat-label>
+            <mat-label>Select Past Days to Show</mat-label>
             <mat-select [formControl]="selectDaysPeriod">
                 <mat-option value=7>
                     7
@@ -80,12 +80,18 @@
         </mat-form-field>
         <mat-form-field class="w-full">
             <mat-label>Select Bank</mat-label>
-            <mat-select [formControl]=" ">
+            <mat-select [formControl]="selectedBank">
                 <mat-option *ngFor="let country of availableBanks | async" [value]="country">
                         {{country}}
                 </mat-option>
             </mat-select>
         </mat-form-field>
+        <canvas *ngIf="(availableBanks | async) " baseChart  class="w-full" height="400"
+            [type]="'line'"
+            [data]="lineChartData"
+            [options]="lineChartOptions"
+            [legend]="lineChartLegend">
+      </canvas>
     </div>
 
 </div>

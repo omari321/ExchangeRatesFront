@@ -1,6 +1,6 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
 import {FormControl, ReactiveFormsModule} from '@angular/forms';
-import {async, BehaviorSubject} from 'rxjs';
+import {async, BehaviorSubject, Subscription} from 'rxjs';
 import {switchMap, startWith} from 'rxjs/operators';
 import {ExchangeRateService} from "./exchange-rate.service";
 import {MatFormFieldModule} from "@angular/material/form-field";
@@ -20,28 +20,35 @@ import {CommonModule} from '@angular/common';
         CommonModule
     ]
 })
-export class ExchangeRatesComponent implements OnInit {
+export class ExchangeRatesComponent implements OnInit , OnDestroy {
     selectControl = new FormControl('USD');
     exchangeRates$ = new BehaviorSubject<any[]>([]);
     displayedColumns: string[] = ['bankName', 'buyRate', 'sellRate'];
     selectedCurrency: string = 'USD';
+    private _subscriptions: Subscription[]=[];
 
     constructor(private exchangeRateService: ExchangeRateService) {
     }
 
+
     ngOnInit(): void {
         // get exchange rates for selected currency
-        this.selectControl.valueChanges.pipe(
+        this._subscriptions.push(
+            this.selectControl.valueChanges.pipe(
             startWith(this.selectControl.value),
             switchMap((value) => this.exchangeRateService.getExchangeRates(value))
-        ).subscribe(x => this.exchangeRates$.next(x.data.bankCurrencyInformationDto));
+        ).subscribe(x => this.exchangeRates$.next(x.data.bankCurrencyInformationDto))
+        );
         // store selected currency
-        this.selectControl.valueChanges
+        this._subscriptions.push(
+            this.selectControl.valueChanges
             .subscribe(value => {
                 this.selectedCurrency = value;
-            });
+            }));
     }
-
+    ngOnDestroy(): void {
+        this._subscriptions.forEach(x=>x.unsubscribe);
+    }
 
     mapCurrencyCodeToName(selectedCurrency: string): string {
         switch (selectedCurrency) {
