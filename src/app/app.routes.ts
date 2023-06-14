@@ -18,8 +18,6 @@ export const appRoutes: Route[] = [
     // location. This is a small convenience to keep all main routes together here on this file.
     {path: 'signed-in-redirect', pathMatch : 'full', redirectTo: 'exchange-rates'},
 
-
-    // Admin routes
     {
         path: '',
         component: LayoutComponent,
@@ -28,6 +26,8 @@ export const appRoutes: Route[] = [
         },
         children: [
             {path: 'exchange-rates', loadChildren: () => import('app/modules/landing/exchangeRates/exchange-rates.routes')},
-        ]
+            { path: '**', redirectTo: 'exchange-rates' },
+        ],
+
     }
 ];
