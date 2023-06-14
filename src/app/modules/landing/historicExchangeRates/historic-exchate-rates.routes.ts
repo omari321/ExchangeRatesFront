@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { HistoricExchangeRatesComponent } from './historic-exchangeRates.models';
+import { HistoricExchangeRatesComponent } from './historic-exchangeRates.component';
 
 export default [
     {
