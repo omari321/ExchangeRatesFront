@@ -73,7 +73,7 @@
             <ng-container matColumnDef="bankName">
                 <mat-cell *matCellDef="let element">
                     <span class="flex">
-                        <img *ngIf="element.logoUrl" src="{{element.logoUrl}}" class="w-[32px] mr-2" alt="Bank logo">
+                        <img src="assets/images/bankImages/{{element.bankName}}.png" class="w-[32px] mr-2" alt="Bank logo">
                         {{element.bankName}}
                     </span>
                 </mat-cell>
