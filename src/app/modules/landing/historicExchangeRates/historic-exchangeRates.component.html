@@ -8,60 +8,60 @@
             <mat-select [formControl]="selectControl">
                 <mat-select-trigger>
                     <img
-                            src="{{mapCurrencyCodeToFlagURL(selectedCurrency)}}"
-                            class="inline w-[32px] mr-2"
-                            alt="United states flag"
+                        src="{{mapCurrencyCodeToFlagURL(selectedCurrency)}}"
+                        class="inline w-[32px] mr-2"
+                        alt="United states flag"
                     >
                     {{mapCurrencyCodeToName(selectedCurrency)}}
                 </mat-select-trigger>
                 <mat-option value="USD">
                     <span class="flex items-center">
                         <img
-                                src="https://flagsapi.com/US/flat/32.png"
-                                class="inline w-[32px] mr-2"
-                                alt="United states flag">
+                            src="https://flagsapi.com/US/flat/32.png"
+                            class="inline w-[32px] mr-2"
+                            alt="United states flag">
                         United States Dollar
                     </span>
                 </mat-option>
                 <mat-option value="EUR">
                     <span class="flex items-center">
                         <img
-                                src="https://flagcdn.com/w40/eu.png"
-                                class="w-[32px] mr-2"
-                                alt="European Union"
+                            src="https://flagcdn.com/w40/eu.png"
+                            class="w-[32px] mr-2"
+                            alt="European Union"
                         >
                         Euro
                     </span>
                 </mat-option>
                 <mat-option value="GBP">
                     <img
-                            src="https://flagsapi.com/GB/flat/32.png"
-                            class="inline w-[32px] mr-2"
-                            alt="United states flag"
+                        src="https://flagsapi.com/GB/flat/32.png"
+                        class="inline w-[32px] mr-2"
+                        alt="United states flag"
                     >
                     Great Britain Pound
                 </mat-option>
                 <mat-option value="RUB">
                     <img
-                            src="https://flagsapi.com/RU/flat/32.png"
-                            class="inline w-[32px] mr-2"
-                            alt="United states flag"
+                        src="https://flagsapi.com/RU/flat/32.png"
+                        class="inline w-[32px] mr-2"
+                        alt="United states flag"
                     >
                     Russian Ruble
                 </mat-option>
                 <mat-option value="CHF">
                     <img
-                            src="https://flagsapi.com/CH/flat/32.png"
-                            class="inline w-[32px] mr-2"
-                            alt="United states flag"
+                        src="https://flagsapi.com/CH/flat/32.png"
+                        class="inline w-[32px] mr-2"
+                        alt="United states flag"
                     >
                     Swiss Franc
                 </mat-option>
                 <mat-option value="TRY">
                     <img
-                            src="https://flagsapi.com/TR/flat/32.png"
-                            class="inline w-[32px] mr-2"
-                            alt="United states flag"
+                        src="https://flagsapi.com/TR/flat/32.png"
+                        class="inline w-[32px] mr-2"
+                        alt="United states flag"
                     >
                     Turkish Lira
                 </mat-option>
@@ -82,16 +82,27 @@
             <mat-label>Select Bank</mat-label>
             <mat-select [formControl]="selectedBank">
                 <mat-option *ngFor="let country of availableBanks | async" [value]="country">
-                        {{country}}
+                    {{country}}
                 </mat-option>
             </mat-select>
         </mat-form-field>
-        <canvas *ngIf="(availableBanks | async) " baseChart  class="w-full" height="400"
-            [type]="'line'"
-            [data]="lineChartData"
-            [options]="lineChartOptions"
-            [legend]="lineChartLegend">
-      </canvas>
-    </div>
+        <mat-form-field class="w-full">
+            <mat-label>Select Bank</mat-label>
+            <mat-select [formControl]="selectedExchange">
+                <mat-option value="buy">
+                    buy rate
+                </mat-option>
+                <mat-option value="sell">
+                    sell rate
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
 
+        <canvas *ngIf="(availableBanks | async) " baseChart class="w-full"
+                [type]="'line'"
+                [data]="lineChartData"
+                [options]="lineChartOptions"
+                [legend]="lineChartLegend">
+        </canvas>
+    </div>
 </div>
