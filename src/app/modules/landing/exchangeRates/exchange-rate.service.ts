@@ -15,6 +15,6 @@ export class ExchangeRateService {
     ) { }
 
     getExchangeRates(currency: string): Observable<ApplicationResult<ExchangeRates>> {
-        return this._httpClient.get<ApplicationResult<ExchangeRates>>(`${this._configService.Config.API_URL}/BankExchangeRate?Currencies=${currency}`);
+        return this._httpClient.get<ApplicationResult<ExchangeRates>>(`${this._configService.Config.API_URL}/BankExchangeRate?Currency=${currency}`);
     }
 }

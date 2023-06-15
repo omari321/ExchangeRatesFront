@@ -34,17 +34,24 @@ export class ExchangeRatesComponent implements OnInit , OnDestroy {
     ngOnInit(): void {
         // get exchange rates for selected currency
         this._subscriptions.push(
+            this.exchangeRateService.getExchangeRates(this.selectedCurrency)
+            .subscribe(x=>
+            {
+                this.exchangeRates$.next(x.data.bankCurrencyInformationDto)
+            })
+        );
+
+        this._subscriptions.push(
             this.selectControl.valueChanges.pipe(
             startWith(this.selectControl.value),
-            switchMap((value) => this.exchangeRateService.getExchangeRates(value))
+            switchMap((value) => {
+                console.log(value);
+
+                this.selectedCurrency=value;
+                return this.exchangeRateService.getExchangeRates(value);
+            })
         ).subscribe(x => this.exchangeRates$.next(x.data.bankCurrencyInformationDto))
         );
-        // store selected currency
-        this._subscriptions.push(
-            this.selectControl.valueChanges
-            .subscribe(value => {
-                this.selectedCurrency = value;
-            }));
     }
     ngOnDestroy(): void {
         this._subscriptions.forEach(x=>x.unsubscribe);

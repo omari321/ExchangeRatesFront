@@ -31,11 +31,10 @@ export class HistoricExchangeRatesComponent implements OnInit , OnDestroy {
     selectedBank= new FormControl<string>(null);
     availableBanks= new BehaviorSubject<string[]>(null);
 
-    title = 'ng2-charts-demo';
 
     lineChartData?: ChartConfiguration<'line'>['data'];
     public lineChartOptions: ChartOptions<'line'> = {
-        responsive: false
+        responsive: true
       };
     public lineChartLegend = true;
 
@@ -51,7 +50,6 @@ export class HistoricExchangeRatesComponent implements OnInit , OnDestroy {
                 .getHistoricExchangeRates(this.selectedCurrency,this.selectDaysPeriod.value)
                 .subscribe(x=>
                     {
-                        console.log(x);
 
                         this._data=x.data;
                         this.selectedBank.setValue(x.data[0].bankRates[0].bankName);
@@ -124,20 +122,19 @@ export class HistoricExchangeRatesComponent implements OnInit , OnDestroy {
                             fill: true,
                             tension: 0.5,
                             borderColor: 'black',
-                            backgroundColor: 'rgba(255,0,0,0.3)'
+                            backgroundColor: 'rgba(255, 51, 0,0.5)'
                         },
                         {
                             data: this._data.map(x=>x.bankRates.filter(y=>y.bankName==this.selectedBank.value)[0].sellRate).reverse(),
                             label: 'Sell Rate',
                             fill: true,
-                            tension: 0.5,
+                            tension: 0,
                             borderColor: 'black',
-                            backgroundColor: 'rgba(50, 166, 168,0.3)',
+                            backgroundColor: 'rgb(153, 255, 102)',
 
                         }
                     ]
                 }
-                console.log(this.lineChartData);
             })
         );
     }
